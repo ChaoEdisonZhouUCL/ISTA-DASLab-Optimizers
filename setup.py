@@ -17,10 +17,11 @@ def get_cuda_extension(name, sources):
         extra_compile_args={
             'cxx': [],  # C++ compiler flags (if any)
             'nvcc': [
+                '-gencode', 'arch=compute_60,code=sm_60',  # For compute capability 7.0 (e.g., P100)
                 '-gencode', 'arch=compute_70,code=sm_70',  # For compute capability 7.0 (e.g., V100)
                 '-gencode', 'arch=compute_80,code=sm_80',  # For compute capability 8.0 (e.g., A100)
                 '-gencode', 'arch=compute_86,code=sm_86',  # For compute capability 8.6 (e.g., RTX 30xx)
-                '-gencode', 'arch=compute_70,code=compute_70',  # PTX for compute capability >= 7.0 (forward compatibility)
+                '-gencode', 'arch=compute_60,code=compute_60',  # PTX for compute capability >= 7.0 (forward compatibility)
                 '-O3',  # Optimize for performance
                 '--use_fast_math',  # Enable fast math operations
                 '--ptxas-options=-v',  # Verbose PTX assembly output (optional)
